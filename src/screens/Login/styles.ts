@@ -11,6 +11,9 @@ export const IlustrationContainer = styled.View`
   width: 100%;
   height: 350px;
 
+  border-bottom-left-radius: 100px;
+  border-bottom-right-radius: 100px;
+
   justify-content: center;
   align-items: center;
 `;

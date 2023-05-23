@@ -1,5 +1,6 @@
 {
   "expo": {
+    "owner": "dumoresco",
     "name": "easyList",
     "slug": "easyList",
     "version": "1.0.0",
@@ -10,6 +11,7 @@
       "image": "./assets/splash.png",
       "backgroundColor": "#7048F6"
     },
+    "scheme": "easyList",
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
