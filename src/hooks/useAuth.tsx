@@ -2,6 +2,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { ThunkDispatch, ThunkAction } from "redux-thunk";
 import {
   actions,
+  selectExpirationDate,
+  selectExpiresIn,
   selectLoading,
   selectToken,
 } from "../redux/reducers/auth/auth.reducer";
@@ -14,6 +16,21 @@ export const useAuth = () => {
   const [userInfo, setUserInfo] = useState<UserInfo>();
   const token = useSelector(selectToken);
   const isFetching = useSelector(selectLoading);
+  const expirationDate = useSelector(selectExpirationDate);
+
+  console.log("expirationDate", expirationDate);
+
+  // desloga o usuário quando o token expira
+  useEffect(() => {
+    if (expirationDate) {
+      const expirationDateParsed = new Date(expirationDate);
+      const currentDate = new Date();
+
+      if (expirationDateParsed <= currentDate) {
+        dispatch(actions.logout());
+      }
+    }
+  }, [expirationDate]);
 
   const navigation = useNavigation<any>();
   console.log(token);

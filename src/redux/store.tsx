@@ -7,7 +7,7 @@ import { reducer as authReducer } from "./reducers/auth/auth.reducer";
 const authPersistConfig = {
   key: "auth",
   storage: AsyncStorage,
-  whitelist: ["token", "expires_in"],
+  whitelist: ["token", "expires_in", "expirationDate"],
 };
 // Set Reducers
 
