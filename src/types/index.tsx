@@ -4,3 +4,10 @@ export type UserInfo = {
   given_name: string;
   picture: string;
 };
+
+export type ItemProps = {
+  id?: string;
+  name: string;
+  price: string;
+  quantity: number;
+};

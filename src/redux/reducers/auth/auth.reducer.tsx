@@ -48,7 +48,6 @@ const reducers = {
       const expiresInMs = parseInt(action.payload) * 1000;
       const expirationDate = new Date(Date.now() + expiresInMs);
       state.expirationDate = expirationDate;
-      console.log("expirationDate", expirationDate);
     } else {
       state.expirationDate = null;
     }
@@ -74,7 +73,6 @@ export const login = createAsyncThunk(
     const { type, params } = (await AuthSession.startAsync({
       authUrl: url,
     })) as AuthResponse;
-    console.log(type, params);
     if (type === "success") {
       dispatch(actions.setToken(params.access_token));
       dispatch(actions.setUser(params.access_token));

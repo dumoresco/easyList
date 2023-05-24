@@ -7,7 +7,7 @@ type ContainerProps = {
 export const Container = styled.TouchableOpacity`
   background-color: ${(props: ContainerProps) => props.backgroundColor};
 
-  padding: 0 16px;
+  padding: 0px 16px;
 
   width: 100%;
   height: 50px;

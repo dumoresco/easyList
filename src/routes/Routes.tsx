@@ -7,6 +7,5 @@ import { useAuth } from "../hooks/useAuth";
 export const Routes = () => {
   const { isAuth } = useAuth();
 
-  console.log("[isAuth]", isAuth);
   return isAuth ? <AppTabBar /> : <AuthTabBar />;
 };

@@ -15,6 +15,7 @@ import Input from "../Input";
 import InputQtd from "../InputQtd";
 import ButtonModal from "../ButtonModal";
 import ButtonModalFooter from "../ButtonModalFooter";
+import { useListRepository } from "../../hooks/useListRepository";
 
 type ModalAddItemProps = {
   visible: boolean;
@@ -31,8 +32,6 @@ const ButtonAdd: React.FC = () => {
     setIsModalVisible(false);
   };
 
-  console.log("[isModalVisible]", isModalVisible);
-
   return (
     <>
       <Container onPress={() => openModal()}>
@@ -46,7 +45,11 @@ const ButtonAdd: React.FC = () => {
 export default ButtonAdd;
 
 const ModalAddItem: React.FC<ModalAddItemProps> = ({ visible, onClose }) => {
-  const [price, setPrice] = useState("0");
+  const { handleAddItem } = useListRepository();
+
+  const [name, setName] = useState("");
+  const [price, setPrice] = useState("");
+  const [quantity, setQuantity] = useState(0);
 
   return (
     <View>
@@ -62,6 +65,8 @@ const ModalAddItem: React.FC<ModalAddItemProps> = ({ visible, onClose }) => {
             <View style={styles.inputGroup}>
               <Text style={styles.label}>Item</Text>
               <Input
+                value={name}
+                onChangeText={setName}
                 placeholder="Ex: Arroz"
                 placeholderTextColor="#C1BCCC"
                 hasIcon={false}
@@ -93,12 +98,21 @@ const ModalAddItem: React.FC<ModalAddItemProps> = ({ visible, onClose }) => {
             </View>
             <View style={styles.inputGroup}>
               <Text style={styles.label}>Quantidade</Text>
-              <InputQtd />
+              <InputQtd value={quantity} onChange={setQuantity} />
             </View>
           </View>
           <ButtonModal
             onPress={() => {
-              console.log("Pronto");
+              handleAddItem({
+                name,
+                price,
+                quantity,
+              });
+
+              setName("");
+              setPrice("");
+              setQuantity(0);
+              onClose();
             }}
             title="Pronto"
             backgroundColor="#7048F6"

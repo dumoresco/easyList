@@ -18,8 +18,6 @@ export const useAuth = () => {
   const isFetching = useSelector(selectLoading);
   const expirationDate = useSelector(selectExpirationDate);
 
-  console.log("expirationDate", expirationDate);
-
   // desloga o usuário quando o token expira
   useEffect(() => {
     if (expirationDate) {
@@ -33,7 +31,6 @@ export const useAuth = () => {
   }, [expirationDate]);
 
   const navigation = useNavigation<any>();
-  console.log(token);
 
   const dispatch: ThunkDispatch<RootState, unknown, any> = useDispatch();
   const handleLogin = () => {

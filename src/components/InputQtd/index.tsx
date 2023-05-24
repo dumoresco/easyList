@@ -10,28 +10,19 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-const InputQtd: React.FC = () => {
-  const [qtd, setQtd] = useState("0");
+import { useListRepository } from "../../hooks/useListRepository";
 
-  const handleQtd = (value: string) => {
-    setQtd(value);
-  };
+type InputQtdProps = {
+  value?: number;
+  onChange: (value: number) => void;
+};
 
-  const handleIncrement = () => {
-    setQtd((prevState) => String(Number(prevState) + 1));
-  };
-
-  const handleDecrement = () => {
-    if (Number(qtd) > 0) {
-      setQtd((prevState) => String(Number(prevState) - 1));
-    }
-  };
-
+const InputQtd: React.FC<InputQtdProps> = ({ value = 0, onChange }) => {
   return (
     <Container>
       <TouchableOpacity
         style={styles.iconContainer}
-        onPress={() => handleDecrement()}
+        onPress={() => onChange(value - 1)}
       >
         <AntDesign name="minus" size={20} color={"#50555C"} />
       </TouchableOpacity>
@@ -42,7 +33,7 @@ const InputQtd: React.FC = () => {
         }}
       >
         <TextInput
-          onChangeText={(value) => handleQtd(value)}
+          onChangeText={(value) => onChange(parseInt(value))}
           keyboardType="numeric"
           style={{
             width: 40,
@@ -56,12 +47,12 @@ const InputQtd: React.FC = () => {
             justifyContent: "center",
             textAlign: "center",
           }}
-          value={qtd}
+          value={value.toString()}
         />
       </View>
       <TouchableOpacity
         style={styles.iconContainer}
-        onPress={() => handleIncrement()}
+        onPress={() => onChange(value + 1)}
       >
         <AntDesign name="plus" size={20} color={"#50555C"} />
       </TouchableOpacity>
