@@ -10,42 +10,17 @@ import {
   ListInfoContainer,
   HighlightedText,
 } from "./styles";
-import { useRoute } from "@react-navigation/native";
-
-type Params = {
-  token: string;
-};
-
-type UserInfo = {
-  id: string;
-  email: string;
-  given_name: string;
-  picture: string;
-};
+import { useAuth } from "../../hooks/useAuth";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 export default function Home() {
-  const [userInfo, setUserInfo] = useState<UserInfo>();
-
-  const route = useRoute();
-  const { token } = route.params as Params;
-
-  const loadUserInformation = async () => {
-    const response = await fetch("https://www.googleapis.com/userinfo/v2/me", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    const userInfo = await response.json();
-
-    return setUserInfo(userInfo);
-  };
-
+  const { token, userInfo, loadUserInformation, isFetching, handleLogout } =
+    useAuth();
   useEffect(() => {
     loadUserInformation();
-  }, []);
+  }, [token]);
 
-  console.log(userInfo);
+  console.log("[isFetching]", isFetching);
 
   return (
     <Container>
@@ -65,7 +40,9 @@ export default function Home() {
             Organize suas idas ao mercado
           </Text>
         </UserNameContainer>
-        <Avatar source={{ uri: userInfo?.picture }} />
+        <TouchableOpacity onPress={handleLogout}>
+          <Avatar source={{ uri: userInfo?.picture }} />
+        </TouchableOpacity>
       </UserInfoContainer>
 
       <ListInfoContainer>
