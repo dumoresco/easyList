@@ -27,6 +27,8 @@ type ModalItemProps = {
     price: string;
     quantity: number;
   };
+
+  shouldCleanInputs: boolean;
 };
 
 export const ModalItem: React.FC<ModalItemProps> = ({
@@ -35,6 +37,8 @@ export const ModalItem: React.FC<ModalItemProps> = ({
   onClose,
   btnFooterOnPress,
   btnFooterLabel,
+
+  shouldCleanInputs,
 
   btnContentOnPress,
   btnContentLabel,
@@ -107,6 +111,14 @@ export const ModalItem: React.FC<ModalItemProps> = ({
                 price,
                 quantity,
               });
+
+              if (shouldCleanInputs) {
+                setName("");
+                setPrice("");
+                setQuantity(0);
+              }
+
+              onClose();
             }}
             title={btnContentLabel}
             backgroundColor={btnContentBackgroundColor}

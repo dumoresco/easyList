@@ -73,6 +73,7 @@ const Item: React.FC<ItemProps> = ({ id, name, price, quantity }) => {
         }}
         btnFooterLabel={"Remover"}
         btnFooterIcon={"trash"}
+        shouldCleanInputs={false}
         btnContentOnPress={({ id, name, price, quantity }: ItemProps) => {
           handleUpdateItem({
             id,

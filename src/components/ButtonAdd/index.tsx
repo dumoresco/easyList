@@ -29,8 +29,10 @@ const ButtonAdd: React.FC = () => {
         title={"Adicionar item"}
         visible={isModalVisible}
         onClose={closeModal}
-        btnFooterOnPress={() => {}}
-        btnFooterLabel={"Adicionar"}
+        btnFooterOnPress={() => {
+          closeModal();
+        }}
+        btnFooterLabel={"Cancelar"}
         btnFooterIcon={"plus"}
         btnContentOnPress={({ name, price, quantity }: ItemProps) => {
           handleAddItem({
@@ -42,6 +44,7 @@ const ButtonAdd: React.FC = () => {
 
           closeModal();
         }}
+        shouldCleanInputs={true}
         btnContentLabel={"Pronto"}
         btnContentIcon={"checkbox-marked"}
         btnContentBackgroundColor={"#7048F6"}

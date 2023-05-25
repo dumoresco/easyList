@@ -65,8 +65,8 @@ export const ModalFilters = styled.View<ModalFiltersProps>`
   background-color: #fff;
   width: 300px;
   position: absolute;
-  right: 20;
-  bottom: 180;
+  right: 20px;
+  bottom: 180px;
 
   padding: 20px;
   border-radius: 10px;

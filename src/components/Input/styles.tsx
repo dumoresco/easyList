@@ -14,7 +14,7 @@ export const Container = styled.View<ContainerProps>`
   border-width: 1px;
   border-color: #e3e3e5;
 
-  padding: 0 ${(props) => (props.hasIcon ? 0 : 10)}px;
+  padding: 0px ${(props) => (props.hasIcon ? 0 : 10)}px;
 
   flex-direction: row;
   align-items: center;
