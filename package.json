@@ -16,6 +16,7 @@
     "@react-navigation/bottom-tabs": "^6.5.7",
     "@react-navigation/native": "^6.1.6",
     "@reduxjs/toolkit": "^1.9.5",
+    "@types/react-native-modal": "^4.1.1",
     "@types/uuid": "^9.0.1",
     "expo": "~48.0.15",
     "expo-auth-session": "^4.0.3",

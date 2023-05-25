@@ -36,10 +36,6 @@ export const useListRepository = () => {
   };
 
   const handleAddItem = ({ name, price, quantity }: ItemProps) => {
-    console.log("name", name);
-    console.log("quantity", quantity);
-    console.log("price", price);
-
     if (!name) {
       Alert.alert("Nome do produto é obrigatório");
       return;
@@ -64,6 +60,10 @@ export const useListRepository = () => {
     dispatch(actions.removeItem(id));
   };
 
+  const handleUpdateItem = ({ id, name, price, quantity }: ItemProps) => {
+    dispatch(actions.updateItem({ id, name, price, quantity }));
+  };
+
   return {
     name,
     price,
@@ -77,6 +77,7 @@ export const useListRepository = () => {
 
     handleAddItem,
     handleDeleteItem,
+    handleUpdateItem,
 
     inputQuantity,
   };

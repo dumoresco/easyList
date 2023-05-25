@@ -9,16 +9,24 @@ type ButtonModalProps = {
   onPress: () => void;
   title: string;
   backgroundColor: string;
+  icon: string;
+  disabled: boolean;
 };
 
 const ButtonModal: React.FC<ButtonModalProps> = ({
   onPress,
   title,
   backgroundColor,
+  icon,
+  disabled,
 }) => {
   return (
-    <Container onPress={onPress} backgroundColor={backgroundColor}>
-      <MaterialCommunityIcons name="checkbox-marked" size={25} color={"#fff"} />
+    <Container
+      onPress={onPress}
+      backgroundColor={backgroundColor}
+      disabled={disabled}
+    >
+      <MaterialCommunityIcons name={icon} size={25} color={"#fff"} />
       <Text
         style={{
           fontSize: 16,

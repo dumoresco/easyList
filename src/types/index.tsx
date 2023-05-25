@@ -6,7 +6,7 @@ export type UserInfo = {
 };
 
 export type ItemProps = {
-  id?: string;
+  id: string;
   name: string;
   price: string;
   quantity: number;

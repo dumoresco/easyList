@@ -23,8 +23,6 @@ const reducers = {
   // Add Item
   addItem: (state: ListState, action: PayloadAction<ItemProps>) => {
     state.list.push(action.payload);
-
-    console.log("[PAYLOAD]", action.payload);
   },
 
   // Remove Item
