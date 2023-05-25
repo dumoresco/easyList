@@ -16,14 +16,25 @@ import {
   LightText,
   ListInfoContainer,
   HighlightedText,
+  ModalFilters,
 } from "./styles";
 import { useAuth } from "../../hooks/useAuth";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
-import { selectList } from "../../redux/reducers/list/list.reducer";
-import { useSelector } from "react-redux";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import {
+  actions,
+  filterOptions,
+  selectFilter,
+  selectList,
+} from "../../redux/reducers/list/list.reducer";
+import { useSelector, useDispatch } from "react-redux";
 import Item from "../../components/Item";
 export default function Home() {
+  const dispatch = useDispatch();
+  const [visible, setVisible] = useState(false);
+  const filteredList = useSelector(selectList);
+  const [filter, setFilter] = useState(filterOptions[0].id);
   const { token, userInfo, loadUserInformation, isFetching, handleLogout } =
     useAuth();
   useEffect(() => {
@@ -31,7 +42,7 @@ export default function Home() {
   }, [token]);
 
   const list = useSelector(selectList);
-  const total = list.reduce(
+  const total = list?.reduce(
     (acc: number, item: { price: string; quantity: number }) => {
       const price = parseFloat(item.price.replace(",", "."));
       return acc + price * item.quantity;
@@ -79,7 +90,14 @@ export default function Home() {
       </Container>
       <View style={styles.sessionTitleContainer}>
         <Text style={styles.sessionTitle}>Meu carrinho</Text>
-        <MaterialIcons name="filter-alt" size={24} color="#585666" />
+        <MaterialIcons
+          name={visible ? "close" : "filter-list"}
+          size={30}
+          color="#585666"
+          onPress={() => {
+            setVisible(!visible);
+          }}
+        />
       </View>
       {list.length === 0 && (
         <View
@@ -106,7 +124,7 @@ export default function Home() {
 
       <FlatList
         style={styles.listContainer}
-        data={list}
+        data={filteredList}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <Item
@@ -117,6 +135,60 @@ export default function Home() {
           />
         )}
       ></FlatList>
+      <ModalFilters visible={visible}>
+        <Text style={styles.sessionTitle}>Filtros</Text>
+        <FlatList
+          style={{ width: "100%", zIndex: 999 }}
+          data={filterOptions}
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              onPress={() => {
+                dispatch(actions.filterList(item.id));
+                setFilter(item.id);
+              }}
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "space-between",
+                paddingVertical: 10,
+                borderBottomColor: "#E3E3E5",
+                borderBottomWidth: 1,
+              }}
+            >
+              <MaterialCommunityIcons
+                name={item.icon}
+                size={24}
+                color={filter === item.id ? "#7048F6" : "#b4b4b4"}
+                onPress={() => {
+                  setVisible(!visible);
+                }}
+              />
+              <Text
+                style={{
+                  fontSize: 16,
+                  color: filter === item.id ? "#7048F6" : "#b4b4b4",
+                  textAlign: "left",
+                  marginLeft: 10,
+                  flex: 1,
+                }}
+              >
+                {item.name}
+              </Text>
+
+              {filter === item.id && (
+                <MaterialIcons
+                  name="check"
+                  size={24}
+                  color={"#7048F6"}
+                  onPress={() => {
+                    setVisible(!visible);
+                  }}
+                />
+              )}
+            </TouchableOpacity>
+          )}
+        ></FlatList>
+      </ModalFilters>
     </>
   );
 }
@@ -158,7 +230,8 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     flex: 1,
-    width: Dimensions.get("window").width - 40,
+    width: Dimensions.get("window").width - 30,
     marginHorizontal: 20,
+    paddingRight: 10,
   },
 });

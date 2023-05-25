@@ -1,5 +1,9 @@
 import styled from "styled-components/native";
 
+type ModalFiltersProps = {
+  visible: boolean;
+};
+
 export const Container = styled.View`
   background-color: #7048f6;
   height: 200px;
@@ -55,4 +59,17 @@ export const ListInfoContainer = styled.View`
 export const HighlightedText = styled.Text`
   color: #b099ff;
   font-weight: bold;
+`;
+
+export const ModalFilters = styled.View<ModalFiltersProps>`
+  background-color: #fff;
+  width: 300px;
+  position: absolute;
+  right: 20;
+  bottom: 180;
+
+  padding: 20px;
+  border-radius: 10px;
+
+  display: ${(props) => (props.visible ? "flex" : "none")};
 `;
